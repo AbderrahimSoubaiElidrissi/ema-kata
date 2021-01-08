@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.octo.dto.specifications.VideoSpecification;
 
 @Service
 public class VideoService {
@@ -16,7 +17,7 @@ public class VideoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(VideoService.class);
 
     @Autowired
-    private VideoRepository videoRepository;
+    private VideoRepository videoRepository  new VideoRepository();
     @Autowired
     private VideoToVideoDTOMapper videoToVideoDTOMapper;
 
@@ -24,16 +25,12 @@ public class VideoService {
 
     public List<VideoDTO> retrieveVideosByTagAndLevel(List<String> tags, Level level) {
 
-		if (tags == null && level == null){
-			return videoRepository.findAll();
-        }
+    VideoSpecification spec = new VideoSpecification(new SearchCriteriaDTO(tags,level)); 
+		
+    return  videoRepository.findAll(spec);
 
-        if (tags == null || level == null){
-                return videoRepository.findByLevelOrTags(level, tags);
-        }
 
-		return videoRepository.findByLevelAndTags(level, tags);
-    }
+  }
 
 
 }

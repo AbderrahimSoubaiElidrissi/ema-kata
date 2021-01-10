@@ -2,6 +2,7 @@ package com.octo.services;
 
 import com.octo.domain.enums.Level;
 import com.octo.dto.video.VideoDTO;
+import com.octo.dto.criteria.SearchCriteriaDTO;
 import com.octo.mappers.VideoToVideoDTOMapper;
 import com.octo.repository.VideoRepository;
 import java.util.List;
@@ -25,9 +26,9 @@ public class VideoService {
 
     public List<VideoDTO> retrieveVideosByTagAndLevel(List<String> tags, Level level) {
 
-    VideoSpecification spec = new VideoSpecification(new SearchCriteriaDTO(tags,level)); 
-		
-    return  videoRepository.findAll(spec);
+      VideoSpecification spec = new VideoSpecification(new SearchCriteriaDTO(tags,level)); 
+      
+      return  videoRepository.findAll(spec);
 
 
   }
